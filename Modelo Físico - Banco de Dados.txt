@@ -1,0 +1,43 @@
+/* Modelo Lógico - Banco de Dados: */
+
+CREATE TABLE Customer (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR  NOT NULL,
+    email VARCHAR  NOT NULL,
+    birthdate VARCHAR
+);
+
+CREATE TABLE Sale (
+    id SERIAL PRIMARY KEY  NOT NULL,
+    totalprice DOUBLE PRECISION  NOT NULL,
+    fk_Customer_id SERIAL  NOT NULL
+);
+
+CREATE TABLE Product (
+    id SERIAL PRIMARY KEY  NOT NULL,
+    name VARCHAR  NOT NULL,
+    price DOUBLE PRECISION  NOT NULL,
+    description VARCHAR
+);
+
+CREATE TABLE SaleProducts (
+    fk_Product_id SERIAL  NOT NULL,
+    fk_Sale_id SERIAL  NOT NULL,
+    id SERIAL PRIMARY KEY  NOT NULL,
+    quantity INTEGER NOT NULL
+);
+ 
+ALTER TABLE Sale ADD CONSTRAINT FK_Sale_2
+    FOREIGN KEY (fk_Customer_id)
+    REFERENCES Customer (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE SaleProducts ADD CONSTRAINT FK_SaleProducts_2
+    FOREIGN KEY (fk_Product_id)
+    REFERENCES Product (id)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE SaleProducts ADD CONSTRAINT FK_SaleProducts_3
+    FOREIGN KEY (fk_Sale_id)
+    REFERENCES Sale (id)
+    ON DELETE SET NULL;
