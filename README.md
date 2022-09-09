@@ -48,7 +48,7 @@ O projeto segue os seguintes requisitos e tecnologias:
   <br>
   <ul>
     <li><b>Cliente - </b>Obrigatório</li>
-    <li><b>Preço - </b>Obrigatório / Pelo Menos 1 Produto</li>
+    <li><b>Produtos - </b>Obrigatório / Pelo Menos 1 Produto</li>
   </ul>
 </ul>
   
