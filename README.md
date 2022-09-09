@@ -13,7 +13,6 @@ O projeto segue os seguintes requisitos e tecnologias:
   <li><b> Front-End:</b> 🅰<i>Angular (</i>🟦<i>TypeSript)</i> </li>
   <li><b> Back-End:</b> 🍃<i>Spring-Boot (</i>☕<i>Java)</i> </li>
   <li><b> Banco de Dados:</b> 🐘<i>PostgreSQL</i> </li>
-  <li><b> Idioma:</b> <i>Inglês (EN-US)</i></li>
 </ul>
 <b>Tecnologias opcionais:</b>
 <br>
@@ -28,6 +27,8 @@ O projeto segue os seguintes requisitos e tecnologias:
 <br>
 <br>
 <ul>
+  <li><b> Idioma do Projeto:</b> <i>Inglês (EN-US)</i></li>
+  <br>
   <li><b>👤Cliente:</b></li>
   <br>
   <ul>
