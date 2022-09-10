@@ -1,14 +1,16 @@
 package com.leonardo.Spring.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "sale")
 public class Sale {
 
     // Attributes
@@ -18,18 +20,13 @@ public class Sale {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    // Customer - Customer - Not Nullable -
+    // Customer - Customer - Not Nullable - Foreign Key
     @OneToOne
+    @JoinColumn(name = "fk_customer_id", referencedColumnName = "id")
     private Customer customer;
-    // DEVE TER ESSA LINHA??? @Column(name = "customer", nullable = false)
 
-    // Product(s) - Product - Not Nullable
-    @OneToMany
-    private List<Product> product;
-    // DEVE TER ESSA LINHA??? @Column(name = "product", nullable = false)
-    
     // Total Price - Double - Not Nullable
-    @Column(name = "totalPrice", nullable = false)
+    @Column(name = "totalprice", nullable = false)
     private Double totalPrice;
 
     // Getters and Setters
@@ -49,15 +46,6 @@ public class Sale {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    // Product(s)
-    public List<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Product> product) {
-        this.product = product;
     }
 
     // Total Price

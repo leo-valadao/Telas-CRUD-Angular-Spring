@@ -24,7 +24,8 @@ CREATE TABLE SaleProducts (
     fk_Product_id SERIAL NOT NULL,
     fk_Sale_id SERIAL NOT NULL,
     id SERIAL PRIMARY KEY NOT NULL,
-    quantity INTEGER NOT NULL
+    quantity INTEGER NOT NULL,
+    productprice DOUBLE PRECISION NOT NULL
 );
  
 ALTER TABLE Sale ADD CONSTRAINT FK_Sale_2

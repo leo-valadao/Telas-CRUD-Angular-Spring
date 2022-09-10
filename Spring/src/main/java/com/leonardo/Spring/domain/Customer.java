@@ -1,6 +1,6 @@
 package com.leonardo.Spring.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +29,8 @@ public class Customer {
     private String email;
 
     // Birth Date - Date (Java Util) - Nullable
-    @Column(name = "birthDate", nullable = true)
-    private Date birthDate;
+    @Column(name = "birthdate", nullable = true)
+    private LocalDate birthDate;
 
     // Getters and Setters
     // ID
@@ -62,11 +62,11 @@ public class Customer {
     }
 
     // Birth Date
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

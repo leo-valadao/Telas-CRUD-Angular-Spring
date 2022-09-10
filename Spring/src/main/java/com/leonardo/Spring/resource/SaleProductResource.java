@@ -21,7 +21,7 @@ import com.leonardo.Spring.domain.SaleProduct;
 import com.leonardo.Spring.service.SaleProductService;
 
 @RestController
-@RequestMapping(path = "/api/sale")
+@RequestMapping(path = "/api/saleproducts")
 public class SaleProductResource {
 
     // Objetcs
@@ -69,7 +69,7 @@ public class SaleProductResource {
     public ResponseEntity<String> deleteSaleProduct(@PathVariable("id") Long id) {
         try {
             saleProductService.deleteSaleProductById(id);
-            return new ResponseEntity<String>("SaleProduct Successfully Deleted! ID: " + id, HttpStatus.OK);
+            return new ResponseEntity<String>("Sale's Product(s) Successfully Deleted! ID: " + id, HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<String>(
                     "Failed to Delete Sale's Product(s) Due to Data Integrity Violation! ID: " + id,
