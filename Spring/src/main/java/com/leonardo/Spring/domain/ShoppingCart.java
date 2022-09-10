@@ -10,8 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "saleproducts")
-public class SaleProduct {
+@Table(name = "shoppingcart")
+public class ShoppingCart {
 
     // Attributes
     // ID - Long - Not Nullable - Serial - Identifier
@@ -45,7 +45,6 @@ public class SaleProduct {
     }
 
     public void setId(Long id) {
-
         this.id = id;
     }
 
@@ -83,5 +82,12 @@ public class SaleProduct {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    // To String
+    @Override
+    public String toString() {
+        return "ShoppingCart [id=" + id + ", product=" + product + ", productPrice=" + productPrice + ", quantity="
+                + quantity + ", sale=" + sale + "]";
     }
 }

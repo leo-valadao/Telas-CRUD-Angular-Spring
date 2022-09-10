@@ -69,4 +69,10 @@ public class Customer {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
+
+    // To String
+    @Override
+    public String toString() {
+        return "Customer [birthDate=" + birthDate + ", email=" + email + ", id=" + id + ", name=" + name + "]";
+    }
 }

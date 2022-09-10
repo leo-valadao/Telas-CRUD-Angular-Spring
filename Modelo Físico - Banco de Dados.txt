@@ -9,7 +9,6 @@ CREATE TABLE Customer (
 
 CREATE TABLE Sale (
     id SERIAL PRIMARY KEY NOT NULL,
-    totalprice DOUBLE PRECISION NOT NULL,
     fk_Customer_id SERIAL NOT NULL
 );
 
@@ -20,7 +19,7 @@ CREATE TABLE Product (
     description VARCHAR
 );
 
-CREATE TABLE SaleProducts (
+CREATE TABLE ShoppingCart (
     fk_Product_id SERIAL NOT NULL,
     fk_Sale_id SERIAL NOT NULL,
     id SERIAL PRIMARY KEY NOT NULL,
@@ -33,12 +32,12 @@ ALTER TABLE Sale ADD CONSTRAINT FK_Sale_2
     REFERENCES Customer (id)
     ON DELETE CASCADE;
  
-ALTER TABLE SaleProducts ADD CONSTRAINT FK_SaleProducts_2
+ALTER TABLE ShoppingCart ADD CONSTRAINT FK_ShoppingCart_2
     FOREIGN KEY (fk_Product_id)
     REFERENCES Product (id)
     ON DELETE RESTRICT;
  
-ALTER TABLE SaleProducts ADD CONSTRAINT FK_SaleProducts_3
+ALTER TABLE ShoppingCart ADD CONSTRAINT FK_ShoppingCart_3
     FOREIGN KEY (fk_Sale_id)
     REFERENCES Sale (id)
     ON DELETE SET NULL;

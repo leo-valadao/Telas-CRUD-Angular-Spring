@@ -25,10 +25,6 @@ public class Sale {
     @JoinColumn(name = "fk_customer_id", referencedColumnName = "id")
     private Customer customer;
 
-    // Total Price - Double - Not Nullable
-    @Column(name = "totalprice", nullable = false)
-    private Double totalPrice;
-
     // Getters and Setters
     // ID
     public Long getId() {
@@ -48,12 +44,9 @@ public class Sale {
         this.customer = customer;
     }
 
-    // Total Price
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    // To String
+    @Override
+    public String toString() {
+        return "Sale [customer=" + customer + ", id=" + id + "]";
     }
 }
