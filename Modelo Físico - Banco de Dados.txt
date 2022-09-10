@@ -2,28 +2,28 @@
 
 CREATE TABLE Customer (
     id SERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR  NOT NULL,
-    email VARCHAR  NOT NULL,
-    birthdate VARCHAR
+    name VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    birthdate DATE
 );
 
 CREATE TABLE Sale (
-    id SERIAL PRIMARY KEY  NOT NULL,
-    totalprice DOUBLE PRECISION  NOT NULL,
-    fk_Customer_id SERIAL  NOT NULL
+    id SERIAL PRIMARY KEY NOT NULL,
+    totalprice DOUBLE PRECISION NOT NULL,
+    fk_Customer_id SERIAL NOT NULL
 );
 
 CREATE TABLE Product (
-    id SERIAL PRIMARY KEY  NOT NULL,
-    name VARCHAR  NOT NULL,
-    price DOUBLE PRECISION  NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR NOT NULL,
+    price DOUBLE PRECISION NOT NULL,
     description VARCHAR
 );
 
 CREATE TABLE SaleProducts (
-    fk_Product_id SERIAL  NOT NULL,
-    fk_Sale_id SERIAL  NOT NULL,
-    id SERIAL PRIMARY KEY  NOT NULL,
+    fk_Product_id SERIAL NOT NULL,
+    fk_Sale_id SERIAL NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     quantity INTEGER NOT NULL
 );
  
