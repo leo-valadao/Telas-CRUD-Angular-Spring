@@ -44,4 +44,8 @@ public class CustomerService {
     public void deleteCustomerById(Long id) {
         customerRepository.deleteById(id);
     }
+
+    public Customer findCustomerByEmail(String email) {
+        return null;
+    }
 }

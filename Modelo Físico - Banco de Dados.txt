@@ -1,4 +1,4 @@
-/* Modelo Lógico - Banco de Dados: */
+/* Modelo Físico - Banco de Dados: */
 
 CREATE TABLE Customer (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -9,6 +9,10 @@ CREATE TABLE Customer (
 
 CREATE TABLE Sale (
     id SERIAL PRIMARY KEY NOT NULL,
+<<<<<<< Updated upstream
+=======
+    totalprice DOUBLE PRECISION NOT NULL,
+>>>>>>> Stashed changes
     fk_Customer_id SERIAL NOT NULL
 );
 
@@ -17,6 +21,15 @@ CREATE TABLE Product (
     name VARCHAR NOT NULL,
     price DOUBLE PRECISION NOT NULL,
     description VARCHAR
+);
+
+CREATE TABLE UserCredentials (
+    id SERIAL PRIMARY KEY NOT NULL,
+    username VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    role VARCHAR NOT NULL,
+    UNIQUE (username, email)
 );
 
 CREATE TABLE ShoppingCart (
