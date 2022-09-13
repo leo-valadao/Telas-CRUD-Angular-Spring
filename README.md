@@ -34,22 +34,22 @@ O projeto segue os seguintes requisitos e tecnologias:
   <ul>
     <li><b>Nome - </b>String / Obrigatório</li>
     <li><b>E-Mail - </b>String / Obrigatório</li>
-    <li><b>Data de Nascimento - </b>Date / Opcional</li>
+    <li><b>Data de Nascimento - </b>LocalDate / Opcional</li>
   </ul>
   <br>
   <li><b>🧃Produto:</b></li>
   <br>
   <ul>
     <li><b>Nome - </b>String / Obrigatório</li>
-    <li><b>Preço - </b>String / Obrigatório</li>
+    <li><b>Preço - </b>Double / Obrigatório</li>
     <li><b>Descrição - </b>String / Opcional</li>
   </ul>
   <br>
   <li><b>💰Venda:</b></li>
   <br>
   <ul>
-    <li><b>Cliente - </b>Obrigatório</li>
-    <li><b>Produtos - </b>Obrigatório / Pelo Menos 1 Produto</li>
+    <li><b>Cliente - </b>Cliente / Obrigatório</li>
+    <li><b>Produtos - </b>Produto/ Obrigatório / Pelo Menos 1 Produto</li>
   </ul>
 </ul>
   
