@@ -34,7 +34,7 @@ O projeto segue os seguintes requisitos e tecnologias:
   <ul>
     <li><b>Nome - </b>String / Obrigatório</li>
     <li><b>E-Mail - </b>String / Obrigatório</li>
-    <li><b>Data de Nascimento - </b>Date / Opcional</li>
+    <li><b>Data de Nascimento - </b>LocalDate / Opcional</li>
   </ul>
   <br>
   <li><b>🧃Produto:</b></li>
