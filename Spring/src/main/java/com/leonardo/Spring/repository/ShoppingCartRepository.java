@@ -11,6 +11,6 @@ import com.leonardo.Spring.domain.ShoppingCart;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
 
-    @Query(value = "SELECT * FROM ShoppingCart WHERE fk_sale_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT sc FROM ShoppingCart sc WHERE sc.sale.id = ?1")
     List<ShoppingCart> findAllBySale(long saleId);
 }
