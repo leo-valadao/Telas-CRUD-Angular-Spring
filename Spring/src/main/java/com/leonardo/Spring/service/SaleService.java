@@ -1,9 +1,7 @@
 package com.leonardo.Spring.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,12 +39,11 @@ public class SaleService {
     }
 
     // Get Sale by ID
-    public Optional<Sale> findSaleById(Long id) {
-        Optional<Sale> sale = saleRepository.findById(id);
-        if (sale.isPresent()) {
-            return sale;
-        } else {
-            throw new EntityNotFoundException("Sale Not Found! ID: " + id);
+    public Sale findSaleById(Long id) {
+        try {
+            return saleRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new NoSuchElementException("Couldn't Find Sale! ID: " + id + " Exception: " + e);
         }
     }
 

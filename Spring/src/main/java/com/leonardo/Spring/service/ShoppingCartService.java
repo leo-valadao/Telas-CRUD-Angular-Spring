@@ -1,9 +1,7 @@
 package com.leonardo.Spring.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +29,11 @@ public class ShoppingCartService {
     }
 
     // Get Shopping Cart by ID
-    public Optional<ShoppingCart> findShoppingCartById(Long id) {
-        Optional<ShoppingCart> shoppingCart = shoppingCartRepository.findById(id);
-        if (shoppingCart.isPresent()) {
-            return shoppingCart;
-        } else {
-            throw new EntityNotFoundException("Shopping Cart Not Found! ID: " + id);
+    public ShoppingCart findShoppingCartById(Long id) {
+        try {
+            return shoppingCartRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new NoSuchElementException("Couldn't Find Shopping Cart! ID: " + id + " Exception: " + e);
         }
     }
 

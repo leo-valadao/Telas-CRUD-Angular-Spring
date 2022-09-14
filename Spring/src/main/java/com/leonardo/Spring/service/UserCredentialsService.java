@@ -1,9 +1,7 @@
 package com.leonardo.Spring.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +24,11 @@ public class UserCredentialsService {
     }
 
         // Get User's Credentials by ID
-        public Optional<UserCredentials> findUserCredentialsById(Long id) {
-            Optional<UserCredentials> userCredentials = userCredentialsRepository.findById(id);
-            if (userCredentials.isPresent()) {
-                return userCredentials;
-            } else {
-                throw new EntityNotFoundException("UserCredentials Not Found! ID: " + id);
+        public UserCredentials findUserCredentialsById(Long id) {
+            try {
+                return userCredentialsRepository.findById(id).get();
+            } catch (Exception e) {
+                throw new NoSuchElementException("Couldn't Find User's Credentials! ID: " + id + " Exception: " + e);
             }
         }
     
