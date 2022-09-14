@@ -24,10 +24,6 @@ public class ShoppingCart {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    // Product's Price - Double - Not Nullable
-    @Column(name = "productprice", nullable = false)
-    private Double productPrice;
-
     // Sale - Sale - Not Nullable - Foreign Key
     @OneToOne
     @JoinColumn(name = "fk_sale_id", referencedColumnName = "id")
@@ -46,15 +42,6 @@ public class ShoppingCart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    // Product's Price
-    public Double getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
     }
 
     // Quantity
@@ -87,7 +74,6 @@ public class ShoppingCart {
     // To String
     @Override
     public String toString() {
-        return "ShoppingCart [id=" + id + ", product=" + product + ", productPrice=" + productPrice + ", quantity="
-                + quantity + ", sale=" + sale + "]";
+        return "ShoppingCart [id=" + id + ", product=" + product + ", quantity=" + quantity + ", sale=" + sale + "]";
     }
 }

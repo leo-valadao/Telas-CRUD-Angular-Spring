@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.Spring.domain.Sale;
-import com.leonardo.Spring.domain.ShoppingCart;
 import com.leonardo.Spring.repository.SaleRepository;
-import com.leonardo.Spring.repository.ShoppingCartRepository;
 
 @Service
 public class SaleService {
@@ -19,23 +17,10 @@ public class SaleService {
     @Autowired
     private SaleRepository saleRepository;
 
-    @Autowired
-    private ShoppingCartRepository saleCartRepository;
-
     // Methods
     // Get All Sale
     public List<Sale> findAllSales() {
         return saleRepository.findAll();
-    }
-
-    // Get Total Price of Sale
-    public Double getTotalPriceSale(Long saleId) {
-        List<ShoppingCart> shoppinCartsList = saleCartRepository.findAllBySale(saleId);
-        Double totalPriceSale = 0.0;
-        for (ShoppingCart cart : shoppinCartsList) {
-            totalPriceSale = totalPriceSale + cart.getProductPrice();
-        }
-        return totalPriceSale;
     }
 
     // Get Sale by ID

@@ -39,7 +39,6 @@ public class ShoppingCartService {
 
     // Save Shopping Cart
     public ShoppingCart saveShoppingCart(ShoppingCart shoppingCart) {
-        shoppingCart.setProductPrice(shoppingCart.getProduct().getPrice() * shoppingCart.getQuantity());
         return shoppingCartRepository.save(shoppingCart);
     }
 
