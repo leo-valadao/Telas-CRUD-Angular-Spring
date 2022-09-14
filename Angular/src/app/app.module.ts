@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
+import { HeaderModule } from './header/header.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
+    AngularMaterialModule,
+    HeaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
