@@ -9,7 +9,6 @@ CREATE TABLE Customer (
 
 CREATE TABLE Sale (
     id SERIAL PRIMARY KEY NOT NULL,
-    totalprice DOUBLE PRECISION NOT NULL,
     fk_Customer_id SERIAL NOT NULL
 );
 
@@ -25,6 +24,7 @@ CREATE TABLE UserCredentials (
     username VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
+    role VARCHAR NOT NULL,
     UNIQUE (email, username)
 );
 
@@ -32,8 +32,7 @@ CREATE TABLE ShoppingCart (
     fk_Product_id SERIAL NOT NULL,
     fk_Sale_id SERIAL NOT NULL,
     id SERIAL PRIMARY KEY NOT NULL,
-    quantity INTEGER NOT NULL,
-    productprice DOUBLE PRECISION NOT NULL
+    quantity INTEGER NOT NULL
 );
  
 ALTER TABLE Sale ADD CONSTRAINT FK_Sale_2
