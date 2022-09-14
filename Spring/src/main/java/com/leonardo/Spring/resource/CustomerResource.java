@@ -1,7 +1,6 @@
 package com.leonardo.Spring.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,12 +37,12 @@ public class CustomerResource {
     // Get Customer by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable("id") Long id) {
-        Optional<Customer> customer = customerService.findCustomerById(id);
-        if (customer.isPresent()) {
-            return new ResponseEntity<Optional<Customer>>(customer, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Optional<Customer>>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
+        try {
+            return new ResponseEntity<Customer>(customerService.findCustomerById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -56,8 +55,8 @@ public class CustomerResource {
     // Update Customer
     @PutMapping
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-        Optional<Customer> oldCustomer = customerService.findCustomerById(customer.getId());
-        if (oldCustomer.isPresent()) {
+        Customer oldCustomer = customerService.findCustomerById(customer.getId());
+        if (oldCustomer != null) {
             return new ResponseEntity<Customer>(customerService.saveCustomer(customer), HttpStatus.OK);
         } else {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);

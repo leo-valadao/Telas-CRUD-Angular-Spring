@@ -1,7 +1,6 @@
 package com.leonardo.Spring.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,12 +37,12 @@ public class ProductResource {
     // Get Product by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Optional<Product>> getProductById(@PathVariable("id") Long id) {
-        Optional<Product> product = productService.findProductById(id);
-        if (product.isPresent()) {
-            return new ResponseEntity<Optional<Product>>(product, HttpStatus.OK);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+        Product product = productService.findProductById(id);
+        if (product != null) {
+            return new ResponseEntity<Product>(product, HttpStatus.OK);
         } else {
-            return new ResponseEntity<Optional<Product>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -56,8 +55,8 @@ public class ProductResource {
     // Update Product
     @PutMapping
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        Optional<Product> oldProduct = productService.findProductById(product.getId());
-        if (oldProduct.isPresent()) {
+        Product oldProduct = productService.findProductById(product.getId());
+        if (oldProduct != null) {
             return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.OK);
         } else {
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);

@@ -1,7 +1,6 @@
 package com.leonardo.Spring.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,12 +37,12 @@ public class SaleResource {
     // Get Sale by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Optional<Sale>> getSaleById(@PathVariable("id") Long id) {
-        Optional<Sale> sale = saleService.findSaleById(id);
-        if (sale.isPresent()) {
-            return new ResponseEntity<Optional<Sale>>(sale, HttpStatus.OK);
+    public ResponseEntity<Sale> getSaleById(@PathVariable("id") Long id) {
+        Sale sale = saleService.findSaleById(id);
+        if (sale != null) {
+            return new ResponseEntity<Sale>(sale, HttpStatus.OK);
         } else {
-            return new ResponseEntity<Optional<Sale>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Sale>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -56,8 +55,8 @@ public class SaleResource {
     // Update Sale
     @PutMapping
     public ResponseEntity<Sale> updateSale(@RequestBody Sale sale) {
-        Optional<Sale> oldSale = saleService.findSaleById(sale.getId());
-        if (oldSale.isPresent()) {
+        Sale oldSale = saleService.findSaleById(sale.getId());
+        if (oldSale != null) {
             return new ResponseEntity<Sale>(saleService.saveSale(sale), HttpStatus.OK);
         } else {
             return new ResponseEntity<Sale>(HttpStatus.NOT_FOUND);

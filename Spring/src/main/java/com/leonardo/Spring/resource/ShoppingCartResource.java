@@ -1,7 +1,6 @@
 package com.leonardo.Spring.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,12 +37,12 @@ public class ShoppingCartResource {
     // Get Shopping Cart by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Optional<ShoppingCart>> getShoppingCartById(@PathVariable("id") Long id) {
-        Optional<ShoppingCart> shoppingCart = shoppingCartService.findShoppingCartById(id);
-        if (shoppingCart.isPresent()) {
-            return new ResponseEntity<Optional<ShoppingCart>>(shoppingCart, HttpStatus.OK);
+    public ResponseEntity<ShoppingCart> getShoppingCartById(@PathVariable("id") Long id) {
+        ShoppingCart shoppingCart = shoppingCartService.findShoppingCartById(id);
+        if (shoppingCart != null) {
+            return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
         } else {
-            return new ResponseEntity<Optional<ShoppingCart>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ShoppingCart>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -56,8 +55,8 @@ public class ShoppingCartResource {
     // Update Shopping Cart
     @PutMapping
     public ResponseEntity<ShoppingCart> updateShoppingCart(@RequestBody ShoppingCart shoppingCart) {
-        Optional<ShoppingCart> oldShoppingCart = shoppingCartService.findShoppingCartById(shoppingCart.getId());
-        if (oldShoppingCart.isPresent()) {
+        ShoppingCart oldShoppingCart = shoppingCartService.findShoppingCartById(shoppingCart.getId());
+        if (oldShoppingCart != null) {
             return new ResponseEntity<ShoppingCart>(shoppingCartService.saveShoppingCart(shoppingCart), HttpStatus.OK);
         } else {
             return new ResponseEntity<ShoppingCart>(HttpStatus.NOT_FOUND);

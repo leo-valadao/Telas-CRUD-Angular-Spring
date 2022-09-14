@@ -26,9 +26,9 @@ public class CustomerService {
     // Get Customer by ID
     public Customer findCustomerById(Long id) {
         try {
-            return customerRepository.findById(id).get();    
+            return customerRepository.findById(id).get();
         } catch (Exception e) {
-            throw new NoSuchElementException("Couldn't Find Customer! ID: " + id+" Exception: " +e);
+            throw new NoSuchElementException("Couldn't Find Customer! ID: " + id + " Exception: " + e);
         }
     }
 
@@ -40,9 +40,5 @@ public class CustomerService {
     // Delete Customer
     public void deleteCustomerById(Long id) {
         customerRepository.deleteById(id);
-    }
-
-    public Customer findCustomerByEmail(String email) {
-        return null;
     }
 }

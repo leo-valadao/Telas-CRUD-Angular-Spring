@@ -1,7 +1,6 @@
 package com.leonardo.Spring.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,12 +38,12 @@ public class UserCredentialsResource {
     // Get User's Credential by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<Optional<UserCredentials>> getUserCredentialsById(@PathVariable("id") Long id) {
-        Optional<UserCredentials> userCredentials = userCredentialsService.findUserCredentialsById(id);
-        if (userCredentials.isPresent()) {
-            return new ResponseEntity<Optional<UserCredentials>>(userCredentials, HttpStatus.OK);
+    public ResponseEntity<UserCredentials> getUserCredentialsById(@PathVariable("id") Long id) {
+        UserCredentials userCredentials = userCredentialsService.findUserCredentialsById(id);
+        if (userCredentials != null) {
+            return new ResponseEntity<UserCredentials>(userCredentials, HttpStatus.OK);
         } else {
-            return new ResponseEntity<Optional<UserCredentials>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<UserCredentials>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -58,9 +57,9 @@ public class UserCredentialsResource {
     // Update User's Credentials
     @PutMapping
     public ResponseEntity<UserCredentials> updateUserCredentials(@RequestBody UserCredentials userCredentials) {
-        Optional<UserCredentials> oldUserCredentials = userCredentialsService
+        UserCredentials oldUserCredentials = userCredentialsService
                 .findUserCredentialsById(userCredentials.getId());
-        if (oldUserCredentials.isPresent()) {
+        if (oldUserCredentials != null) {
             return new ResponseEntity<UserCredentials>(userCredentialsService.saveUserCredentials(userCredentials),
                     HttpStatus.OK);
         } else {
