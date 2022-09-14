@@ -20,7 +20,7 @@ import com.leonardo.Spring.domain.Customer;
 import com.leonardo.Spring.service.CustomerService;
 
 @RestController
-@RequestMapping(path = "/api/customer")
+@RequestMapping(path = "/api/v1/customer")
 public class CustomerResource {
 
     // Objetcs

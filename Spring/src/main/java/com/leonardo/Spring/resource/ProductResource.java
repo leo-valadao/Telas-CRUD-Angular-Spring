@@ -20,7 +20,7 @@ import com.leonardo.Spring.domain.Product;
 import com.leonardo.Spring.service.ProductService;
 
 @RestController
-@RequestMapping(path = "/api/product")
+@RequestMapping(path = "/api/v1/product")
 public class ProductResource {
 
     // Objetcs

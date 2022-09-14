@@ -20,7 +20,7 @@ import com.leonardo.Spring.domain.UserCredentials;
 import com.leonardo.Spring.service.UserCredentialsService;
 
 @RestController
-@RequestMapping(path = "/api/usercredentials")
+@RequestMapping(path = "/api/v1/usercredentials")
 public class UserCredentialsResource {
 
     // Objetcs

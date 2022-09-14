@@ -20,7 +20,7 @@ import com.leonardo.Spring.domain.ShoppingCart;
 import com.leonardo.Spring.service.ShoppingCartService;
 
 @RestController
-@RequestMapping(path = "/api/shoppingcart")
+@RequestMapping(path = "/api/v1/shoppingcart")
 public class ShoppingCartResource {
 
     // Objetcs
