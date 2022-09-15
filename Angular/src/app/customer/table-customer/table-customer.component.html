@@ -1,0 +1,30 @@
+<div id="mainContentTableCustomer">
+  <mat-card>
+    card
+
+    <table mat-table [dataSource]="customerList">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let customer">{{customer.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let customer">{{customer.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>E-Mail</th>
+            <td mat-cell *matCellDef="let customer">{{customer.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="birthDate">
+            <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+            <td mat-cell *matCellDef="let customer">{{customer.birthDate}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let customer;columns:displayedColumns"></tr>
+    </table>
+  </mat-card>
+</div>

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
 import { HeaderModule } from './header/header.module';
+import { FooterModule } from './footer/footer.module';
+import { TableCustomerModule } from './customer/table-customer/table-customer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +17,8 @@ import { HeaderModule } from './header/header.module';
     BrowserAnimationsModule,
     AngularMaterialModule,
     HeaderModule,
+    FooterModule,
+    TableCustomerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
