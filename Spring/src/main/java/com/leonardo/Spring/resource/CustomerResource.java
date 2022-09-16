@@ -68,7 +68,7 @@ public class CustomerResource {
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long id) {
         try {
             customerService.deleteCustomerById(id);
-            return new ResponseEntity<String>("Customer Successfully Deleted! ID: " + id, HttpStatus.OK);
+            return new ResponseEntity<String>(HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity<String>("Failed to Delete Customer Due to Data Integrity Violation! ID: " + id,
                     HttpStatus.BAD_REQUEST);

@@ -1,0 +1,43 @@
+<div class="allContent">
+  <!-- Title Toolbar -->
+  <mat-toolbar color="primary">
+    <div>
+      <mat-icon>face</mat-icon>
+      <h1>Customer:</h1>
+    </div>
+  </mat-toolbar>
+
+  <!-- Main Content Mat-Card-Content -->
+  <div class="mainContent">
+    <form [formGroup]="formCustomer" class="form">
+      <!-- Name Input -->
+      <mat-form-field class="formInput">
+        <input matInput placeholder="Name" formControlName="name" />
+      </mat-form-field>
+
+      <!-- Email Input -->
+      <mat-form-field class="formInput">
+        <input matInput placeholder="E-Mail" formControlName="email" />
+      </mat-form-field>
+
+      <!-- Birth Date Date Picker -->
+      <mat-form-field class="formDatePicker">
+        <mat-label>Birth Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dp"
+          formControlName="birthDate"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <!-- Buttons -->
+  <mat-card-actions>
+    <button mat-flat-button color="primary" (click)="onSubmit()">ADD</button>
+    <button mat-flat-button color="warn" (click)="onCancel()">CANCEL</button>
+  </mat-card-actions>
+</div>
