@@ -23,23 +23,24 @@
 
       <!-- Birth Date Column -->
       <ng-container matColumnDef="birthDate">
-        <th mat-header-cell *matHeaderCellDef>Birth Date</th>
-        <td mat-cell *matCellDef="let customer">{{ customer.birthDate }}</td>
+        <th mat-header-cell *matHeaderCellDef>Birth Date (MM/DD/YYYY)</th>
+        <td mat-cell *matCellDef="let customer">
+          {{ customer.birthDate | date: "MM/dd/yyyy" }}
+        </td>
       </ng-container>
 
       <!-- Buttons Column -->
       <ng-container matColumnDef="actions">
-        <!-- Header Add Button -->
-        <th>
-          <mat-header-cell *matHeaderCellDef>
-            <button mat-icon-button color="primary" aria-label="Add a Customer">
-              <mat-icon (click)="onAdd()">add</mat-icon>
-            </button>
-          </mat-header-cell>
+        <!-- Column Header -->
+        <th mat-header-cell *matHeaderCellDef id="actionsHeader">
+          <!-- Add Customer Button -->
+          <button mat-icon-button color="primary" aria-label="Add a Customer">
+            <mat-icon (click)="onAdd()">add</mat-icon>
+          </button>
         </th>
 
-        <!-- Buttons For Each Customer -->
-        <mat-cell *matCellDef="let customer">
+        <!-- Column Row -->
+        <td mat-cell *matCellDef="let customer" id="actionsCell">
           <!-- Edit Customer Button -->
           <button mat-icon-button color="primary" aria-label="Edit a Customer">
             <mat-icon (click)="onEdit(customer)">edit</mat-icon>
@@ -49,7 +50,7 @@
           <button mat-icon-button color="warn" aria-label="Remove a Customer">
             <mat-icon (click)="onDelete(customer.id)">delete</mat-icon>
           </button>
-        </mat-cell>
+        </td>
       </ng-container>
 
       <!-- Table Displayed Columns and Rows -->

@@ -61,7 +61,7 @@ export class TableCustomerComponent implements OnInit {
       next: (v) => console.log(v),
       complete: () => this.onSucess('Customer Successfully Deleted!'),
       error: (e) => {
-        console.log(e), this.onError('Error Deleting Customer!');
+        console.log(e), this.onError(e.error);
       },
     });
     this.onLoad();
