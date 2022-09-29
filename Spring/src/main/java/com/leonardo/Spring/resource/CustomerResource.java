@@ -2,9 +2,9 @@ package com.leonardo.Spring.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,33 +31,48 @@ public class CustomerResource {
     // Get All Customer(s)
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        return new ResponseEntity<List<Customer>>(customerService.findAllCustomers(), HttpStatus.OK);
+
+        List<Customer> customers = customerService.findAllCustomers();
+
+        if (!customers.isEmpty()) {
+            return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<List<Customer>>(HttpStatus.NO_CONTENT);
+        }
     }
 
     // Get Customer by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
-        try {
-            return new ResponseEntity<Customer>(customerService.findCustomerById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+
+        Customer customer = customerService.findCustomerById(id);
+
+        if (customer != null) {
+            return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
         }
     }
 
     // Save Customer
     @PostMapping
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<Customer>(customerService.saveCustomer(customer), HttpStatus.CREATED);
+    public ResponseEntity<Void> addCustomer(@RequestBody @Valid Customer customer) {
+
+        customerService.saveCustomer(customer);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     // Update Customer
     @PutMapping
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
+
         Customer oldCustomer = customerService.findCustomerById(customer.getId());
+
         if (oldCustomer != null) {
-            return new ResponseEntity<Customer>(customerService.saveCustomer(customer), HttpStatus.OK);
+            customerService.updateCustomer(customer);
+            return new ResponseEntity<Customer>(customer, HttpStatus.OK);
         } else {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         }
@@ -65,16 +80,15 @@ public class CustomerResource {
 
     // Delete Customer
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long id) {
-        try {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long id) {
+
+        Customer oldCustomer = customerService.findCustomerById(id);
+
+        if (oldCustomer != null) {
             customerService.deleteCustomerById(id);
-            return new ResponseEntity<String>(HttpStatus.OK);
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<String>("Failed to Delete Customer Due to Data Integrity Violation! ID: " + id,
-                    HttpStatus.BAD_REQUEST);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity<String>("Failed to Delete Customer Due to Not Finding It! ID: " + id,
-                    HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
 }

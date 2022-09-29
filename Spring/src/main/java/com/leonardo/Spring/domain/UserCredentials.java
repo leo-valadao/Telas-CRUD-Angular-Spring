@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usercredentials")
@@ -14,23 +15,28 @@ public class UserCredentials {
     // Atributes
     // ID - Long - Not Nullable - Serial - Identifier
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     // Name - String - Not Nullable - Unique
+    @NotNull
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     // E-Mail - String - Not Nullable - Unique
+    @NotNull
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     // Password - String - Not Nullable
+    @NotNull
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
     // Role - String - Not Nullable
+    @NotNull
     @Column(name = "role", nullable = false)
     private String role;
 

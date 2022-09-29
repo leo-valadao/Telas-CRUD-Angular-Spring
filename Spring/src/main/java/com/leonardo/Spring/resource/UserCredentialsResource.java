@@ -2,9 +2,9 @@ package com.leonardo.Spring.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,15 +31,23 @@ public class UserCredentialsResource {
     // Get All User's Credential(s)
     @GetMapping
     public ResponseEntity<List<UserCredentials>> getAllUserCredentialss() {
-        return new ResponseEntity<List<UserCredentials>>(userCredentialsService.findAllUserCredentials(),
-                HttpStatus.OK);
+
+        List<UserCredentials> userCredentialss = userCredentialsService.findAllUserCredentials();
+
+        if (!userCredentialss.isEmpty()) {
+            return new ResponseEntity<List<UserCredentials>>(userCredentialss, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<List<UserCredentials>>(HttpStatus.NO_CONTENT);
+        }
     }
 
     // Get User's Credential by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
     public ResponseEntity<UserCredentials> getUserCredentialsById(@PathVariable("id") Long id) {
+
         UserCredentials userCredentials = userCredentialsService.findUserCredentialsById(id);
+
         if (userCredentials != null) {
             return new ResponseEntity<UserCredentials>(userCredentials, HttpStatus.OK);
         } else {
@@ -49,19 +57,22 @@ public class UserCredentialsResource {
 
     // Save User's Credentials
     @PostMapping
-    public ResponseEntity<UserCredentials> addUserCredentials(@RequestBody UserCredentials userCredentials) {
-        return new ResponseEntity<UserCredentials>(userCredentialsService.saveUserCredentials(userCredentials),
-                HttpStatus.CREATED);
+    public ResponseEntity<Void> addUserCredentials(@RequestBody @Valid UserCredentials userCredentials) {
+
+        userCredentialsService.saveUserCredentials(userCredentials);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     // Update User's Credentials
     @PutMapping
     public ResponseEntity<UserCredentials> updateUserCredentials(@RequestBody UserCredentials userCredentials) {
-        UserCredentials oldUserCredentials = userCredentialsService
-                .findUserCredentialsById(userCredentials.getId());
+
+        UserCredentials oldUserCredentials = userCredentialsService.findUserCredentialsById(userCredentials.getId());
+
         if (oldUserCredentials != null) {
-            return new ResponseEntity<UserCredentials>(userCredentialsService.saveUserCredentials(userCredentials),
-                    HttpStatus.OK);
+            userCredentialsService.saveUserCredentials(userCredentials);
+            return new ResponseEntity<UserCredentials>(userCredentials, HttpStatus.OK);
         } else {
             return new ResponseEntity<UserCredentials>(HttpStatus.NOT_FOUND);
         }
@@ -69,17 +80,15 @@ public class UserCredentialsResource {
 
     // Delete User's Credentials
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteUserCredentials(@PathVariable("id") Long id) {
-        try {
+    public ResponseEntity<Void> deleteUserCredentials(@PathVariable("id") Long id) {
+
+        UserCredentials oldUserCredentials = userCredentialsService.findUserCredentialsById(id);
+
+        if (oldUserCredentials != null) {
             userCredentialsService.deleteUserCredentialsById(id);
-            return new ResponseEntity<String>("User's Credentials Successfully Deleted! ID: " + id, HttpStatus.OK);
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<String>(
-                    "Failed to Delete User's Credentials Due to Data Integrity Violation! ID: " + id,
-                    HttpStatus.BAD_REQUEST);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity<String>("Failed to Delete User's Credentials Due to Not Finding It! ID: " + id,
-                    HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
 }

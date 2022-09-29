@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "customer")
@@ -16,15 +17,18 @@ public class Customer {
     // Attributes
     // ID - Long - Not Nullable - Serial - Identifier
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     // Name - String - Not Nullable
+    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
     // E-Mail - String - Not Nullable
+    @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 

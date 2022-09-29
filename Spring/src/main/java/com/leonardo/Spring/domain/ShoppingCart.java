@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "shoppingcart")
@@ -16,20 +17,24 @@ public class ShoppingCart {
     // Attributes
     // ID - Long - Not Nullable - Serial - Identifier
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     // Quantity - Integer - Not Nullable
+    @NotNull
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     // Sale - Sale - Not Nullable - Foreign Key
+    @NotNull
     @OneToOne
     @JoinColumn(name = "fk_sale_id", referencedColumnName = "id")
     private Sale sale;
 
     // Product - Product - Not Nullable - Foreign Key
+    @NotNull
     @OneToOne
     @JoinColumn(name = "fk_product_id", referencedColumnName = "id")
     private Product product;

@@ -2,9 +2,9 @@ package com.leonardo.Spring.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +31,23 @@ public class ProductResource {
     // Get All Product(s)
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        return new ResponseEntity<List<Product>>(productService.findAllProducts(), HttpStatus.OK);
+
+        List<Product> products = productService.findAllProducts();
+
+        if (!products.isEmpty()) {
+            return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
+        }
     }
 
     // Get Product by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+
         Product product = productService.findProductById(id);
+
         if (product != null) {
             return new ResponseEntity<Product>(product, HttpStatus.OK);
         } else {
@@ -48,16 +57,22 @@ public class ProductResource {
 
     // Save Product
     @PostMapping
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-        return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<Void> addProduct(@RequestBody @Valid Product product) {
+
+        productService.saveProduct(product);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     // Update Product
     @PutMapping
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+        
         Product oldProduct = productService.findProductById(product.getId());
+
         if (oldProduct != null) {
-            return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.OK);
+            productService.saveProduct(product);
+            return new ResponseEntity<Product>(product, HttpStatus.OK);
         } else {
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
         }
@@ -65,16 +80,15 @@ public class ProductResource {
 
     // Delete Product
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") Long id) {
-        try {
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
+        
+        Product oldProduct = productService.findProductById(id);
+
+        if (oldProduct != null) {
             productService.deleteProductById(id);
-            return new ResponseEntity<String>("Product Successfully Deleted! ID: " + id, HttpStatus.OK);
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<String>("Failed to Delete Product Due to Data Integrity Violation! ID: " + id,
-                    HttpStatus.BAD_REQUEST);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity<String>("Failed to Delete Product Due to Not Finding It! ID: " + id,
-                    HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
 }

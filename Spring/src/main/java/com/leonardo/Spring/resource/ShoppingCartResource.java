@@ -2,9 +2,9 @@ package com.leonardo.Spring.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,14 +31,23 @@ public class ShoppingCartResource {
     // Get All Shopping Cart
     @GetMapping
     public ResponseEntity<List<ShoppingCart>> getAllShoppingCarts() {
-        return new ResponseEntity<List<ShoppingCart>>(shoppingCartService.findAllShoppingCarts(), HttpStatus.OK);
+        
+        List<ShoppingCart> shoppingCarts = shoppingCartService.findAllShoppingCarts();
+
+        if (!shoppingCarts.isEmpty()) {
+            return new ResponseEntity<List<ShoppingCart>>(shoppingCarts, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<List<ShoppingCart>>(HttpStatus.NO_CONTENT);
+        }
     }
 
     // Get Shopping Cart by ID
     @GetMapping
     @RequestMapping(value = "/{id}")
     public ResponseEntity<ShoppingCart> getShoppingCartById(@PathVariable("id") Long id) {
+       
         ShoppingCart shoppingCart = shoppingCartService.findShoppingCartById(id);
+
         if (shoppingCart != null) {
             return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
         } else {
@@ -48,16 +57,22 @@ public class ShoppingCartResource {
 
     // Save Shopping Cart
     @PostMapping
-    public ResponseEntity<ShoppingCart> addShoppingCart(@RequestBody ShoppingCart shoppingCart) {
-        return new ResponseEntity<ShoppingCart>(shoppingCartService.saveShoppingCart(shoppingCart), HttpStatus.CREATED);
+    public ResponseEntity<Void> addShoppingCart(@RequestBody @Valid ShoppingCart shoppingCart) {
+        
+        shoppingCartService.saveShoppingCart(shoppingCart);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     // Update Shopping Cart
     @PutMapping
     public ResponseEntity<ShoppingCart> updateShoppingCart(@RequestBody ShoppingCart shoppingCart) {
+         
         ShoppingCart oldShoppingCart = shoppingCartService.findShoppingCartById(shoppingCart.getId());
+
         if (oldShoppingCart != null) {
-            return new ResponseEntity<ShoppingCart>(shoppingCartService.saveShoppingCart(shoppingCart), HttpStatus.OK);
+            shoppingCartService.saveShoppingCart(shoppingCart);
+            return new ResponseEntity<ShoppingCart>(shoppingCart, HttpStatus.OK);
         } else {
             return new ResponseEntity<ShoppingCart>(HttpStatus.NOT_FOUND);
         }
@@ -65,17 +80,15 @@ public class ShoppingCartResource {
 
     // Delete Shopping Cart
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteShoppingCart(@PathVariable("id") Long id) {
-        try {
+    public ResponseEntity<Void> deleteShoppingCart(@PathVariable("id") Long id) {
+       
+        ShoppingCart oldShoppingCart = shoppingCartService.findShoppingCartById(id);
+
+        if (oldShoppingCart != null) {
             shoppingCartService.deleteShoppingCartById(id);
-            return new ResponseEntity<String>("Shopping Cart Successfully Deleted! ID: " + id, HttpStatus.OK);
-        } catch (DataIntegrityViolationException e) {
-            return new ResponseEntity<String>(
-                    "Failed to Delete Shopping Cart Due to Data Integrity Violation! ID: " + id,
-                    HttpStatus.BAD_REQUEST);
-        } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity<String>("Failed to Delete Shopping Cart Due to Not Finding It! ID: " + id,
-                    HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
     }
 }

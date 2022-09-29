@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "sale")
@@ -16,11 +17,13 @@ public class Sale {
     // Attributes
     // ID - Long - Not Nullable - Serial - Identifier
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     // Customer - Customer - Not Nullable - Foreign Key
+    @NotNull
     @OneToOne
     @JoinColumn(name = "fk_customer_id", referencedColumnName = "id")
     private Customer customer;
